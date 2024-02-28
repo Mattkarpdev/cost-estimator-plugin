@@ -243,7 +243,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/cost-estimator-plugin","version":"0.1.0","title":"Cost Estimator","category":"widgets","description":"Display cost estimation.","example":{},"attributes":{"fallbackCurrentYear":{"type":"string"},"showStartingYear":{"type":"boolean"},"startingYear":{"type":"string"}},"supports":{"color":{"text":true},"html":false,"typography":{"fontSize":true}},"textdomain":"cost-estimator-plugin","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/cost-estimator-plugin","version":"0.1.0","title":"Cost Estimator","category":"widgets","description":"Display cost estimation.","example":{},"attributes":{"fallbackCurrentYear":{"type":"string"},"showStartingYear":{"type":"boolean"},"startingYear":{"type":"string"}},"supports":{"color":{"text":true,"background":false},"html":false,"typography":{"fontSize":true}},"textdomain":"cost-estimator-plugin","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php"}');
 
 /***/ })
 

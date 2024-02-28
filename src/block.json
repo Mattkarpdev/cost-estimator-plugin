@@ -20,8 +20,7 @@
   },
   "supports": {
     "color": {
-      "text": true,
-      "background": false
+      "text": true
     },
     "html": false,
     "typography": {

@@ -30,9 +30,9 @@ function copyright_date_block_copyright_date_block_init() {
 	register_block_type( __DIR__ . '/build' );
 }
 
+add_action( 'init', 'copyright_date_block_copyright_date_block_init' );
 
 register_activation_hook( __FILE__, 'mc_input_table' );
-
 function mc_input_table() {
 	
 	global $wpdb;
@@ -52,8 +52,33 @@ function mc_input_table() {
 		dbDelta($sql);
 }
 
-add_action( 'init', 'copyright_date_block_copyright_date_block_init' );
+add_action('rest_api_init', 'mc_register_routes');
+function mc_register_routes(){
+	register_rest_route(
+		'mc/v1',
+		'/input_fields',
+		array(
+			'methods' => 'POST',
+			'callback' => 'mc_post_input',
+			'permission_callback' => '__return_true'
+		)
+	);
+}
 
+function mc_post_input($request) {
+	global $wpdb;
+	$table_name = $wpdb->prefix . 'mc_input_table';
 
+	$rows = $wpdb->insert(
+		$table_name,	
+		array(
+			'field_name' => $request['field_name'],
+			'field_id' => $request['field_id'],
+			'meta_data' => $request['meta_data']
+		)
+
+	);
+		return 'input success';
+}
 
 

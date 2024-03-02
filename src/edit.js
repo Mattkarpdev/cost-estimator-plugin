@@ -48,6 +48,7 @@ import { useEffect } from 'react';
  *
  * @return {Element} Element to render.
  */
+
 export default function Edit( { attributes, setAttributes } ) {
 	const { fallbackCurrentYear, showStartingYear, startingYear } = attributes;
 

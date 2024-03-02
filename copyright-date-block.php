@@ -73,7 +73,7 @@ function mc_post_input($request) {
 		$table_name,	
 		array(
 			'field_name' => $request['field_name'],
-			'field_id' => $request['field_id'],
+			1 => $request['field_id'],
 			'meta_data' => $request['meta_data']
 		)
 
@@ -81,4 +81,46 @@ function mc_post_input($request) {
 		return 'input success';
 }
 
+function render_block_form_attributes( $block_content, $block) {
+	$subbmission_is_set = isset($block['attrs']['submissionMethod']);
+
+
+
+	if($subbmission_is_set == 'custom'){
+		$url_action_set = isset($block['attrs']['action']);
+		$url_action_route = 'wp-json/mc/v1/input_fields';
+		$url_action_route_wc = '*wp-json/mc/v1/input_fields*';
+
+		if ($url_action_set != $url_action_route_wc ){
+			return $block_content;
+		}
+
+		if ($url_action_set == $url_action_route_wc )
+		{
+			$post_url_action = isset($block['attrs']['method']);
+			
+			if ($post_url_action == 'post'){
+
+				return 'post';
+
+			}
+
+			elseif ($post_url_action == 'get'){
+
+				return 'get';
+			}
+			else {
+				return 'did not work';
+			}
+		}
+	}
+	else {
+		return $block_content;
+	}
+
+}
+
+ 
+
+add_filter('render_block_experimental/form', 'render_block_form_attributes');
 

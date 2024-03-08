@@ -65,6 +65,7 @@ function mc_register_routes(){
 	);
 }
 
+
 function mc_post_input($request) {
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'mc_input_table';
@@ -78,49 +79,51 @@ function mc_post_input($request) {
 		)
 
 	);
-		return 'input success';
-}
+		
+		
+	
 
-function render_block_form_attributes( $block_content, $block) {
+
+
+
 	$subbmission_is_set = isset($block['attrs']['submissionMethod']);
-
-
-
-	if($subbmission_is_set == 'custom'){
+	if($subbmission_is_set = 'custom'){
 		$url_action_set = isset($block['attrs']['action']);
 		$url_action_route = 'wp-json/mc/v1/input_fields';
 		$url_action_route_wc = '*wp-json/mc/v1/input_fields*';
+		echo 'did not ggg';
 
 		if ($url_action_set != $url_action_route_wc ){
-			return $block_content;
+			echo 'did not work';
 		}
 
-		if ($url_action_set == $url_action_route_wc )
+		if ($url_action_set = $url_action_route_wc )
 		{
 			$post_url_action = isset($block['attrs']['method']);
+			echo 'did not ';
 			
-			if ($post_url_action == 'post'){
+			if ($post_url_action = 'post'){
 
-				return 'post';
-
-			}
-
-			elseif ($post_url_action == 'get'){
-
-				return 'get';
-			}
-			else {
 				return 'did not work';
+		
+
+			}
+
+		
+			else {
+				return 'did not ggg';
+				
+				
 			}
 		}
 	}
 	else {
-		return $block_content;
+		return 'Hello ggg';
 	}
 
+	 return 'Hello world';
 }
 
- 
 
-add_filter('render_block_experimental/form', 'render_block_form_attributes');
+
 

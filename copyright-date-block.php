@@ -80,66 +80,69 @@ function mc_post_input($request)
 	foreach ($input_fields_params as $key => $value) {
 		echo $key;
 		echo $value;
+
+
+
+		global $wpdb;
+		$table_name = $wpdb->prefix . 'mc_input_table';
+		$rows = $wpdb->insert(
+			$table_name,
+			array(
+				'field_name' => $key,
+				'meta_data' => $value,
+
+			)
+		);
 	}
-
-	$subbmission_is_set = isset($block['attrs']['submissionMethod']);
-	if ($subbmission_is_set && $block['attrs']['submissionMethod'] = 'custom') {
-		$url_action_set = isset($block['attrs']['action']);
-		$url_action_route = 'wp-json/mc/v1/input_fields';
-		$url_action_route_wc = '*mc/v1/input_fields*';
-		echo 'feeter';
-
-		if ($url_action_set != $url_action_route_wc) {
-			echo 'did not work';
-		}
-
-		if ($url_action_set = $url_action_route_wc) {
-			$post_url_action = isset($block['attrs']['method']);
-			echo 'did not ';
-
-			if ($post_url_action = 'post') {
-
-				echo 'did hot work';
-				/** not hitting fuunction yet */
-
-				$input_form_fields = gutenberg_render_block_core_form('allowedBlocks', $block);
-
-				global $wpdb;
-				$table_name = $wpdb->prefix . 'mc_input_table';
-				$rows = $wpdb->insert(
-					$table_name,
-					array(
-						'field_name' => 1,
-
-					)
-				);
-
-				echo 'no no no work';
-			} else {
-				return 'did not ggg';
-			}
-		}
-	} else {
-		echo 'Hello ggg';
-	}
-
-	return $request->get_params();
-}
-
-function mc_post_input_fields($request)
-{
-
-	global $wpdb;
-	$table_name = $wpdb->prefix . 'mc_input_table';
-	$rows = $wpdb->insert(
-		$table_name,
-		array(
-			'field_name' => $request,
-
-		)
-	);
-
-	echo 'no no no work';
-
-	echo 'did got work';
 };
+
+// function mc_post_input_fields($request)
+// {
+
+// 	global $wpdb;
+// 	$table_name = $wpdb->prefix . 'mc_input_table';
+// 	$rows = $wpdb->insert(
+// 		$table_name,
+// 		array(
+// 			'field_name' => $request,
+
+// 		)
+// 	);
+
+// 	echo 'no no no work';
+
+// 	echo 'did got work';
+// };
+
+// $subbmission_is_set = isset($block['attrs']['submissionMethod']);
+// 	if ($subbmission_is_set && $block['attrs']['submissionMethod'] = 'custom') {
+// 		$url_action_set = isset($block['attrs']['action']);
+// 		$url_action_route = 'wp-json/mc/v1/input_fields';
+// 		$url_action_route_wc = '*mc/v1/input_fields*';
+// 		echo 'feeter';
+
+// 		if ($url_action_set != $url_action_route_wc) {
+// 			echo 'did not work';
+// 		}
+
+// 		if ($url_action_set = $url_action_route_wc) {
+// 			$post_url_action = isset($block['attrs']['method']);
+// 			echo 'did not ';
+
+// 			if ($post_url_action = 'post') {
+
+// 				echo 'did hot work';
+// 				/** not hitting fuunction yet */
+
+// 				$input_form_fields = gutenberg_render_block_core_form('allowedBlocks', $block);
+
+// 				echo 'no no no work';
+// 			} else {
+// 				return 'did not ggg';
+// 			}
+// 		}
+// 	} else {
+// 		echo 'Hello ggg';
+// 	}
+
+// 	return $request->get_params();

@@ -44,8 +44,8 @@ function mc_input_table()
 
 	$sql = "CREATE TABLE $table_name ( 
 		id mediumint (9) NOT NULL AUTO_INCREMENT,
-		field_name varchar (100) NOT NULL,
-		field_id mediumint (9) NOT NULL,
+		field_name varchar (100) NULL,
+		field_id mediumint (9) NULL,
 		meta_data longtext NULL,
 		reg_date timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
 		PRIMARY KEY  (id)
@@ -65,16 +65,25 @@ function mc_register_routes()
 			'methods' => 'POST',
 			'callback' => 'mc_post_input',
 			'permission_callback' => '__return_true'
+
 		)
 	);
 }
 
 
 
-function mc_post_input()
+function mc_post_input($request)
 {
+
+
+	$input_fields_params = $request->get_params();
+	foreach ($input_fields_params as $key => $value) {
+		echo $key;
+		echo $value;
+	}
+
 	$subbmission_is_set = isset($block['attrs']['submissionMethod']);
-	if ($subbmission_is_set = 'custom') {
+	if ($subbmission_is_set && $block['attrs']['submissionMethod'] = 'custom') {
 		$url_action_set = isset($block['attrs']['action']);
 		$url_action_route = 'wp-json/mc/v1/input_fields';
 		$url_action_route_wc = '*mc/v1/input_fields*';
@@ -92,7 +101,20 @@ function mc_post_input()
 
 				echo 'did hot work';
 				/** not hitting fuunction yet */
-				add_action('init', 'mc_post_input_fields');
+
+				$input_form_fields = gutenberg_render_block_core_form('allowedBlocks', $block);
+
+				global $wpdb;
+				$table_name = $wpdb->prefix . 'mc_input_table';
+				$rows = $wpdb->insert(
+					$table_name,
+					array(
+						'field_name' => 1,
+
+					)
+				);
+
+				echo 'no no no work';
 			} else {
 				return 'did not ggg';
 			}
@@ -101,27 +123,23 @@ function mc_post_input()
 		echo 'Hello ggg';
 	}
 
-	echo 'Hello world';
+	return $request->get_params();
 }
 
 function mc_post_input_fields($request)
 {
+
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'mc_input_table';
-	$in_field = isset($block['name']);
-	if ($in_field = ['core/form-input']) {
-		foreach ($in_field as $x) {
-			$rows = $wpdb->insert(
-				$table_name,
-				array(
-					'name' => $request['field_name'],
-					'id' => $request['field_id'],
-					'content' => $request['meta_data']
-				)
+	$rows = $wpdb->insert(
+		$table_name,
+		array(
+			'field_name' => $request,
 
+		)
+	);
 
-			);
-			echo 'did hot work';
-		};
-	};
+	echo 'no no no work';
+
+	echo 'did got work';
 };
